@@ -1,156 +1,141 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-    Box,
-    Typography,
-    Paper,
-    Grid,
-    Avatar,
-    Divider,
-    Button,
-    Chip,
-    CircularProgress
-} from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import BusinessIcon from '@mui/icons-material/Business';
-import BadgeIcon from '@mui/icons-material/Badge';
-// import { userService } from '../../services/userService';
+import { ArrowLeft, Mail, Phone, Building, BadgeCheck, Loader2 } from 'lucide-react';
 import type { User } from '../../types/user.types';
+import Button from '../../components/common/Button';
+import { cn } from '../../lib/utils';
 
 const UserProfile: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
-    const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            if (!id) return;
-            try {
-                // For now, simulate API call or use service if mock backend existed
-                // const data = await userService.getById(id);
-                // setUser(data);
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!id) return;
+      try {
+        setTimeout(() => {
+          setUser({
+            id: '1',
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john.doe@example.com',
+            role: 'admin',
+            department: 'IT',
+            designation: 'Senior Developer',
+            status: 'active',
+            joinDate: '2023-01-15',
+            phoneNumber: '+1 234 567 8900'
+          });
+          setLoading(false);
+        }, 1000);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
 
-                // Simulating response for demo
-                setTimeout(() => {
-                    setUser({
-                        id: '1',
-                        firstName: 'John',
-                        lastName: 'Doe',
-                        email: 'john.doe@example.com',
-                        role: 'admin',
-                        department: 'IT',
-                        designation: 'Senior Developer',
-                        status: 'active',
-                        joinDate: '2023-01-15',
-                        phoneNumber: '+1 234 567 8900'
-                    });
-                    setLoading(false);
-                }, 1000);
+    fetchUser();
+  }, [id]);
 
-            } catch (error) {
-                console.error(error);
-                setLoading(false);
-            }
-        };
-
-        fetchUser();
-    }, [id]);
-
-    if (loading) {
-        return (
-            <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
-                <CircularProgress />
-            </Box>
-        );
-    }
-
-    if (!user) {
-        return <Typography>User not found</Typography>;
-    }
-
+  if (loading) {
     return (
-        <Box>
-            <Button
-                startIcon={<ArrowBackIcon />}
-                onClick={() => navigate('/users')}
-                sx={{ mb: 3 }}
-            >
-                Back to Users
-            </Button>
-
-            <Paper sx={{ p: 4 }}>
-                <Grid container spacing={4}>
-                    <Grid size={{ xs: 12, md: 4 }} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <Avatar
-                            sx={{ width: 120, height: 120, mb: 2, fontSize: '3rem', bgcolor: 'primary.main' }}
-                        >
-                            {user.firstName[0]}
-                        </Avatar>
-                        <Typography variant="h5" fontWeight="600">
-                            {user.firstName} {user.lastName}
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-                            {user.designation}
-                        </Typography>
-                        <Chip
-                            label={user.status.toUpperCase()}
-                            color={user.status === 'active' ? 'success' : 'default'}
-                            sx={{ mt: 1 }}
-                        />
-                    </Grid>
-
-                    <Grid size={{ xs: 12, md: 8 }}>
-                        <Typography variant="h6" gutterBottom>
-                            Personal Information
-                        </Typography>
-                        <Divider sx={{ mb: 3 }} />
-
-                        <Grid container spacing={2}>
-                            <Grid size={{ xs: 12, sm: 6 }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                    <EmailIcon color="action" sx={{ mr: 2 }} />
-                                    <Box>
-                                        <Typography variant="caption" color="text.secondary">Email</Typography>
-                                        <Typography variant="body1">{user.email}</Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                            <Grid size={{ xs: 12, sm: 6 }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                    <PhoneIcon color="action" sx={{ mr: 2 }} />
-                                    <Box>
-                                        <Typography variant="caption" color="text.secondary">Phone</Typography>
-                                        <Typography variant="body1">{user.phoneNumber || 'N/A'}</Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                            <Grid size={{ xs: 12, sm: 6 }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                    <BusinessIcon color="action" sx={{ mr: 2 }} />
-                                    <Box>
-                                        <Typography variant="caption" color="text.secondary">Department</Typography>
-                                        <Typography variant="body1">{user.department}</Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                            <Grid size={{ xs: 12, sm: 6 }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                    <BadgeIcon color="action" sx={{ mr: 2 }} />
-                                    <Box>
-                                        <Typography variant="caption" color="text.secondary">Role</Typography>
-                                        <Typography variant="body1" sx={{ textTransform: 'capitalize' }}>{user.role}</Typography>
-                                    </Box>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Paper>
-        </Box>
+      <div className="flex justify-center items-center p-8">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     );
+  }
+
+  if (!user) {
+    return (
+      <div className="text-center p-8">
+        <p className="text-foreground-secondary">User not found</p>
+      </div>
+    );
+  }
+
+  const infoItems = [
+    { icon: Mail, label: 'Email', value: user.email },
+    { icon: Phone, label: 'Phone', value: user.phoneNumber || 'N/A' },
+    { icon: Building, label: 'Department', value: user.department },
+    { icon: BadgeCheck, label: 'Role', value: user.role },
+  ];
+
+  return (
+    <div className="space-y-6">
+      <Button
+        variant="ghost"
+        onClick={() => navigate('/users')}
+        startIcon={<ArrowLeft className="w-4 h-4" />}
+      >
+        Back to Users
+      </Button>
+
+      <div className="bg-surface rounded-xl shadow-md p-6 md:p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Profile Section */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-28 h-28 rounded-full bg-primary flex items-center justify-center text-white text-4xl font-bold mb-4">
+              {user.firstName[0]}
+            </div>
+            <h2 className="text-xl font-bold text-foreground">
+              {user.firstName} {user.lastName}
+            </h2>
+            <p className="text-foreground-secondary mb-3">{user.designation}</p>
+            <span
+              className={cn(
+                'px-4 py-1.5 rounded-full text-sm font-semibold',
+                user.status === 'active'
+                  ? 'bg-success/10 text-success'
+                  : 'bg-muted text-foreground-secondary'
+              )}
+            >
+              {user.status.toUpperCase()}
+            </span>
+          </div>
+
+          {/* Info Section */}
+          <div className="md:col-span-2">
+            <h3 className="text-lg font-semibold text-foreground mb-4">
+              Personal Information
+            </h3>
+            <div className="border-t border-border pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {infoItems.map(({ icon: Icon, label, value }) => (
+                  <div key={label} className="flex items-start gap-3">
+                    <div className="p-2 rounded-md bg-muted">
+                      <Icon className="w-5 h-5 text-foreground-secondary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-foreground-secondary">{label}</p>
+                      <p className="font-medium text-foreground capitalize">{value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-border">
+              <h3 className="text-lg font-semibold text-foreground mb-4">
+                Employment Details
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-foreground-secondary">Join Date</p>
+                  <p className="font-medium text-foreground">{user.joinDate}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-foreground-secondary">Employee ID</p>
+                  <p className="font-medium text-foreground">EMP-{user.id.padStart(4, '0')}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default UserProfile;

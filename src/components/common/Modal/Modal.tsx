@@ -1,64 +1,102 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import type { ReactNode } from 'react';
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    IconButton,
-    Typography
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-// import Button from '../Button';
+import { X } from 'lucide-react';
+import { cn } from '../../../lib/utils';
 
 interface ModalProps {
-    open: boolean;
-    onClose: () => void;
-    title: string;
-    children: ReactNode;
-    actions?: ReactNode;
-    maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  children: ReactNode;
+  actions?: ReactNode;
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
+const maxWidthClasses = {
+  xs: 'max-w-xs',
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+  lg: 'max-w-lg',
+  xl: 'max-w-xl',
+};
+
 const Modal: React.FC<ModalProps> = ({
-    open,
-    onClose,
-    title,
-    children,
-    actions,
-    maxWidth = 'sm'
+  open,
+  onClose,
+  title,
+  children,
+  actions,
+  maxWidth = 'sm',
 }) => {
-    return (
-        <Dialog
-            open={open}
-            onClose={onClose}
-            maxWidth={maxWidth}
-            fullWidth
-        >
-            <DialogTitle sx={{ m: 0, p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Typography variant="h6" component="div" fontWeight="600">
-                    {title}
-                </Typography>
-                <IconButton
-                    aria-label="close"
-                    onClick={onClose}
-                    sx={{
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-            </DialogTitle>
-            <DialogContent dividers>
-                {children}
-            </DialogContent>
-            {actions && (
-                <DialogActions sx={{ p: 2 }}>
-                    {actions}
-                </DialogActions>
-            )}
-        </Dialog>
-    );
+  const handleEscape = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [open, handleEscape]);
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Modal content */}
+      <div
+        className={cn(
+          'relative bg-surface rounded-lg shadow-lg w-full mx-4 animate-in',
+          maxWidthClasses[maxWidth]
+        )}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-border">
+          <h2 id="modal-title" className="text-lg font-semibold text-foreground">
+            {title}
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-md text-foreground-secondary hover:text-foreground hover:bg-muted transition-colors"
+            aria-label="Close modal"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="p-4 max-h-[calc(100vh-200px)] overflow-y-auto">
+          {children}
+        </div>
+
+        {/* Footer/Actions */}
+        {actions && (
+          <div className="flex items-center justify-end gap-2 p-4 border-t border-border">
+            {actions}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Modal;

@@ -1,103 +1,88 @@
-import { createTheme } from '@mui/material/styles';
+// Theme constants for Pulse Ops
+// These values mirror what's defined in global.css @theme
+// Use these for any programmatic access to theme values
 
-export const theme = createTheme({
-    palette: {
-        mode: 'light',
-        primary: {
-            main: '#2563EB', // Vibrant Blue
-            light: '#60A5FA',
-            dark: '#1E40AF',
-            contrastText: '#ffffff',
-        },
-        secondary: {
-            main: '#10B981', // Emerald Green
-            light: '#34D399',
-            dark: '#059669',
-            contrastText: '#ffffff',
-        },
-        background: {
-            default: '#F3F4F6', // Cool Gray
-            paper: '#ffffff',
-        },
-        text: {
-            primary: '#111827',
-            secondary: '#4B5563',
-        },
-        error: {
-            main: '#EF4444',
-        },
-        warning: {
-            main: '#F59E0B',
-        },
-        info: {
-            main: '#3B82F6',
-        },
-        success: {
-            main: '#10B981',
-        },
-    },
-    typography: {
-        fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-        h1: {
-            fontWeight: 700,
-            fontSize: '2.5rem',
-        },
-        h2: {
-            fontWeight: 600,
-            fontSize: '2rem',
-        },
-        h3: {
-            fontWeight: 600,
-            fontSize: '1.75rem',
-        },
-        h4: {
-            fontWeight: 600,
-            fontSize: '1.5rem',
-        },
-        h5: {
-            fontWeight: 500,
-            fontSize: '1.25rem',
-        },
-        h6: {
-            fontWeight: 500,
-            fontSize: '1rem',
-        },
-    },
-    shape: {
-        borderRadius: 8,
-    },
-    components: {
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    textTransform: 'none',
-                    fontWeight: 600,
-                    boxShadow: 'none',
-                    '&:hover': {
-                        boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
-                    },
-                },
-                containedPrimary: {
-                    background: 'linear-gradient(45deg, #2563EB 30%, #3B82F6 90%)',
-                },
-            },
-        },
-        MuiPaper: {
-            styleOverrides: {
-                root: {
-                    backgroundImage: 'none',
-                },
-                elevation1: {
-                    boxShadow: '0px 4px 6px -1px rgba(0,0,0,0.1), 0px 2px 4px -1px rgba(0,0,0,0.06)',
-                },
-            },
-        },
-        MuiCard: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 12,
-                },
-            },
-        },
-    },
-});
+export const colors = {
+  primary: {
+    DEFAULT: '#1976D2',
+    dark: '#0D47A1',
+    light: '#42A5FA',
+    foreground: '#FFFFFF',
+  },
+  accent: {
+    DEFAULT: '#FF9800',
+    light: '#FFB74D',
+    foreground: '#FFFFFF',
+  },
+  success: {
+    DEFAULT: '#43A047',
+    light: '#66BB6A',
+  },
+  warning: {
+    DEFAULT: '#FB8C00',
+    light: '#FFA726',
+  },
+  error: {
+    DEFAULT: '#E53935',
+    light: '#EF5350',
+  },
+  info: {
+    DEFAULT: '#2196F3',
+  },
+  background: '#F5F7FA',
+  surface: '#FFFFFF',
+  foreground: {
+    DEFAULT: '#2C3E50',
+    secondary: '#78909C',
+    tertiary: '#546E7A',
+  },
+  border: {
+    DEFAULT: '#E0E0E0',
+    light: '#F0F0F0',
+  },
+  muted: {
+    DEFAULT: '#F5F7FA',
+    foreground: '#78909C',
+  },
+} as const;
+
+export const spacing = {
+  0: '0px',
+  1: '4px',
+  2: '8px',
+  3: '12px',
+  4: '16px',
+  5: '20px',
+  6: '24px',
+  8: '32px',
+  10: '40px',
+  12: '48px',
+} as const;
+
+export const borderRadius = {
+  sm: '6px',
+  md: '8px',
+  lg: '12px',
+  full: '9999px',
+} as const;
+
+export const shadows = {
+  sm: '0 2px 4px rgba(0, 0, 0, 0.05)',
+  md: '0 2px 8px rgba(0, 0, 0, 0.08)',
+  lg: '0 8px 20px rgba(0, 0, 0, 0.12)',
+  primary: '0 4px 12px rgba(33, 150, 243, 0.4)',
+} as const;
+
+export const fontFamily = {
+  sans: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+} as const;
+
+export const fontSize = {
+  xs: '12px',
+  sm: '14px',
+  base: '16px',
+  lg: '18px',
+  xl: '20px',
+  '2xl': '24px',
+  '3xl': '28px',
+} as const;

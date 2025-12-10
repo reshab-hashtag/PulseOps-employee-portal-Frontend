@@ -1,45 +1,56 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box, CssBaseline, Toolbar, useTheme } from '@mui/material';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
 
-const drawerWidth = 260;
+const DRAWER_WIDTH = 260;
+const HEADER_HEIGHT = 64; // 4rem = 64px
 
 const MainLayout: React.FC = () => {
-    const theme = useTheme();
-    const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-    return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <Header handleDrawerToggle={handleDrawerToggle} />
-            <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    p: 3,
-                    width: { md: `calc(100% - ${drawerWidth}px)` },
-                    minHeight: '100vh',
-                    backgroundColor: theme.palette.background.default,
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}
-            >
-                <Toolbar />
-                <Box sx={{ flexGrow: 1 }}>
-                    <Outlet />
-                </Box>
-                <Footer />
-            </Box>
-        </Box>
-    );
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header - Full width at top */}
+      <Header handleDrawerToggle={handleDrawerToggle} />
+
+      {/* Sidebar - Below header */}
+      <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+
+      {/* Main Content Area */}
+      <main
+        className="min-h-screen flex flex-col"
+        style={{
+          paddingTop: HEADER_HEIGHT,
+          marginLeft: 0,
+        }}
+      >
+        {/* Desktop: offset by sidebar width */}
+        <div
+          className="hidden md:flex md:flex-col flex-1"
+          style={{ marginLeft: DRAWER_WIDTH }}
+        >
+          <div className="flex-1 p-6">
+            <Outlet />
+          </div>
+          <Footer />
+        </div>
+
+        {/* Mobile: full width */}
+        <div className="md:hidden flex-1 flex flex-col">
+          <div className="flex-1 p-4">
+            <Outlet />
+          </div>
+          <Footer />
+        </div>
+      </main>
+    </div>
+  );
 };
 
 export default MainLayout;

@@ -1,29 +1,37 @@
 import React from 'react';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Loader2 } from 'lucide-react';
+import { cn } from '../../../lib/utils';
 
 interface LoadingSpinnerProps {
-    message?: string;
-    fullScreen?: boolean;
+  message?: string;
+  fullScreen?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ message, fullScreen = false }) => {
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: fullScreen ? '100vh' : '100%',
-                width: '100%',
-                minHeight: fullScreen ? 'auto' : 200,
-                gap: 2
-            }}
-        >
-            <CircularProgress />
-            {message && <Typography color="text.secondary">{message}</Typography>}
-        </Box>
-    );
+const sizeClasses = {
+  sm: 'w-4 h-4',
+  md: 'w-8 h-8',
+  lg: 'w-12 h-12',
+};
+
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+  message,
+  fullScreen = false,
+  size = 'md',
+}) => {
+  return (
+    <div
+      className={cn(
+        'flex flex-col justify-center items-center gap-3',
+        fullScreen ? 'h-screen w-full' : 'h-full w-full min-h-[200px]'
+      )}
+    >
+      <Loader2 className={cn('animate-spin text-primary', sizeClasses[size])} />
+      {message && (
+        <p className="text-sm text-foreground-secondary">{message}</p>
+      )}
+    </div>
+  );
 };
 
 export default LoadingSpinner;

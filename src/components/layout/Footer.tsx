@@ -1,14 +1,13 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
 
 const Footer: React.FC = () => {
-    return (
-        <Box sx={{ p: 2, textAlign: 'center' }}>
-            <Typography variant="body2" color="text.secondary">
-                © {new Date().getFullYear()} HRM System. All rights reserved.
-            </Typography>
-        </Box>
-    );
+  return (
+    <footer className="py-4 text-center">
+      <p className="text-sm text-foreground-secondary">
+        &copy; {new Date().getFullYear()} Pulse Ops. All rights reserved.
+      </p>
+    </footer>
+  );
 };
 
 export default Footer;

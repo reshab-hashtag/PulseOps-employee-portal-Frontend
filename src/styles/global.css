@@ -1,45 +1,191 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-:root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Custom theme colors based on Pulse Ops design system */
+@theme {
+  /* Primary Colors */
+  --color-primary: #1976D2;
+  --color-primary-dark: #0D47A1;
+  --color-primary-light: #42A5FA;
+  --color-primary-foreground: #FFFFFF;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Accent Colors */
+  --color-accent: #FF9800;
+  --color-accent-light: #FFB74D;
+  --color-accent-foreground: #FFFFFF;
+
+  /* Status Colors */
+  --color-success: #43A047;
+  --color-success-light: #66BB6A;
+  --color-warning: #FB8C00;
+  --color-warning-light: #FFA726;
+  --color-error: #E53935;
+  --color-error-light: #EF5350;
+  --color-info: #2196F3;
+
+  /* Neutral Colors */
+  --color-background: #F5F7FA;
+  --color-surface: #FFFFFF;
+  --color-foreground: #2C3E50;
+  --color-foreground-secondary: #78909C;
+  --color-foreground-tertiary: #546E7A;
+  --color-border: #E0E0E0;
+  --color-border-light: #F0F0F0;
+  --color-input: #E0E0E0;
+  --color-ring: #1976D2;
+
+  /* Muted */
+  --color-muted: #F5F7FA;
+  --color-muted-foreground: #78909C;
+
+  /* Destructive */
+  --color-destructive: #E53935;
+  --color-destructive-foreground: #FFFFFF;
+
+  /* Card */
+  --color-card: #FFFFFF;
+  --color-card-foreground: #2C3E50;
+
+  /* Popover */
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #2C3E50;
+
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --shadow-primary: 0 4px 12px rgba(33, 150, 243, 0.4);
+
+  /* Font family */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #F3F4F6;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1 {
+    @apply text-3xl font-bold leading-tight;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold leading-snug;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+  }
+
+  h4 {
+    @apply text-lg font-semibold;
+  }
+
+  h5 {
+    @apply text-base font-medium;
+  }
+
+  h6 {
+    @apply text-sm font-medium;
+  }
 }
 
-#root {
-  width: 100%;
-  height: 100vh;
+@layer components {
+  /* Glassmorphism effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    @apply bg-gradient-to-b from-primary to-primary-dark;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-accent to-accent-light;
+  }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full hover:bg-foreground-secondary;
+  }
+
+  /* Status badges */
+  .badge-success {
+    @apply px-3 py-1 rounded-full text-xs font-semibold bg-success/10 text-success;
+  }
+
+  .badge-warning {
+    @apply px-3 py-1 rounded-full text-xs font-semibold bg-warning/10 text-warning;
+  }
+
+  .badge-error {
+    @apply px-3 py-1 rounded-full text-xs font-semibold bg-error/10 text-error;
+  }
+
+  .badge-info {
+    @apply px-3 py-1 rounded-full text-xs font-semibold bg-info/10 text-info;
+  }
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
+@layer utilities {
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+  /* Animation utilities */
+  .animate-in {
+    animation: fade-in 0.3s ease-out;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
-}
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  .hover-lift {
+    @apply hover:-translate-y-1 transition-transform duration-300;
+  }
+
+  /* Focus visible utilities */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  /* Spin animation for loading */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
 }

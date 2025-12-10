@@ -1,44 +1,38 @@
 import React from 'react';
 import type { ReactNode } from 'react';
-import { Box, Typography } from '@mui/material';
-import InboxIcon from '@mui/icons-material/Inbox';
+import { Inbox } from 'lucide-react';
+import { cn } from '../../../lib/utils';
 
 interface EmptyStateProps {
-    title?: string;
-    description?: string;
-    icon?: ReactNode;
-    action?: ReactNode;
+  title?: string;
+  description?: string;
+  icon?: ReactNode;
+  action?: ReactNode;
+  className?: string;
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
-    title = 'No Data Found',
-    description = 'There are no items to display.',
-    icon = <InboxIcon sx={{ fontSize: 60, color: 'text.disabled' }} />,
-    action
+  title = 'No Data Found',
+  description = 'There are no items to display.',
+  icon = <Inbox className="w-16 h-16 text-foreground-tertiary" />,
+  action,
+  className,
 }) => {
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                p: 4,
-                textAlign: 'center',
-                height: '100%',
-                minHeight: 200
-            }}
-        >
-            <Box sx={{ mb: 2 }}>{icon}</Box>
-            <Typography variant="h6" fontWeight="600" gutterBottom>
-                {title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3, maxWidth: 400 }}>
-                {description}
-            </Typography>
-            {action && <Box>{action}</Box>}
-        </Box>
-    );
+  return (
+    <div
+      className={cn(
+        'flex flex-col items-center justify-center p-8 text-center h-full min-h-[200px]',
+        className
+      )}
+    >
+      <div className="mb-4">{icon}</div>
+      <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
+      <p className="text-sm text-foreground-secondary mb-6 max-w-md">
+        {description}
+      </p>
+      {action && <div>{action}</div>}
+    </div>
+  );
 };
 
 export default EmptyState;
