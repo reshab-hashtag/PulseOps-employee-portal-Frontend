@@ -2,21 +2,11 @@ import React, { useState } from 'react';
 import {
     Box,
     Typography,
-    Button,
     Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
     Chip,
     IconButton,
     TextField,
     InputAdornment,
-    Dialog,
-    DialogContent,
-    DialogTitle
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
@@ -26,6 +16,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useNavigate } from 'react-router-dom';
 import type { User, UserStatus } from '../../types/user.types';
 import UserForm from './UserForm';
+import { Pagination } from '@mui/material';
+import { usePagination } from '../../hooks/usePagination';
+import Button from '../../components/common/Button';
+import Modal from '../../components/common/Modal';
+import Table from '../../components/common/Table';
 
 // Mock data for demonstration until API is ready
 const INITIAL_USERS: User[] = [
@@ -123,6 +118,68 @@ const UserList: React.FC = () => {
         user.email.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const { currentData, currentPage, maxPage, jump } = usePagination(filteredUsers, 5);
+
+    const columns = [
+        {
+            id: 'name',
+            label: 'Name',
+            format: (_: unknown, row: User) => (
+                <Box sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => navigate(`/users/${row.id}`)}>
+                    <Typography variant="subtitle2" fontWeight={600} sx={{ color: 'primary.main' }}>
+                        {row.firstName} {row.lastName}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {row.email}
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            id: 'role',
+            label: 'Role',
+            format: (value: unknown) => (
+                <Chip
+                    label={(value as string).toUpperCase()}
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                />
+            )
+        },
+        { id: 'department', label: 'Department' },
+        {
+            id: 'status',
+            label: 'Status',
+            format: (value: unknown) => (
+                <Chip
+                    label={(value as string).replace('_', ' ').toUpperCase()}
+                    size="small"
+                    color={getStatusColor(value as UserStatus)}
+                />
+            )
+        },
+        { id: 'joinDate', label: 'Join Date' },
+        {
+            id: 'actions',
+            label: 'Actions',
+            align: 'right' as const,
+            format: (_: unknown, row: User) => (
+                <Box>
+                    <IconButton size="small" onClick={() => navigate(`/users/${row.id}`)} title="View Profile">
+                        <VisibilityIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" color="primary" onClick={() => handleEditUser(row)} title="Edit">
+                        <EditIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" color="error" onClick={() => handleDeleteUser(row.id)} title="Delete">
+                        <DeleteIcon fontSize="small" />
+                    </IconButton>
+                </Box>
+            )
+        }
+    ];
+
     return (
         <Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
@@ -156,84 +213,37 @@ const UserList: React.FC = () => {
                 />
             </Paper>
 
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Role</TableCell>
-                            <TableCell>Department</TableCell>
-                            <TableCell>Status</TableCell>
-                            <TableCell>Join Date</TableCell>
-                            <TableCell align="right">Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredUsers.map((user) => (
-                            <TableRow key={user.id} hover>
-                                <TableCell>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => navigate(`/users/${user.id}`)}>
-                                        <Typography variant="subtitle2" fontWeight={600} sx={{ color: 'primary.main' }}>
-                                            {user.firstName} {user.lastName}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {user.email}
-                                        </Typography>
-                                    </Box>
-                                </TableCell>
-                                <TableCell>
-                                    <Chip
-                                        label={user.role.toUpperCase()}
-                                        size="small"
-                                        color="primary"
-                                        variant="outlined"
-                                    />
-                                </TableCell>
-                                <TableCell>{user.department}</TableCell>
-                                <TableCell>
-                                    <Chip
-                                        label={user.status.replace('_', ' ').toUpperCase()}
-                                        size="small"
-                                        color={getStatusColor(user.status)}
-                                    />
-                                </TableCell>
-                                <TableCell>{user.joinDate}</TableCell>
-                                <TableCell align="right">
-                                    <IconButton size="small" onClick={() => navigate(`/users/${user.id}`)} title="View Profile">
-                                        <VisibilityIcon fontSize="small" />
-                                    </IconButton>
-                                    <IconButton size="small" color="primary" onClick={() => handleEditUser(user)} title="Edit">
-                                        <EditIcon fontSize="small" />
-                                    </IconButton>
-                                    <IconButton size="small" color="error" onClick={() => handleDeleteUser(user.id)} title="Delete">
-                                        <DeleteIcon fontSize="small" />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        {filteredUsers.length === 0 && (
-                            <TableRow>
-                                <TableCell colSpan={6} align="center" sx={{ py: 3 }}>
-                                    <Typography color="text.secondary">No users found</Typography>
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Table
+                columns={columns}
+                rows={currentData()}
+            />
 
-            <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="md" fullWidth>
-                <DialogTitle>{selectedUser ? 'Edit User' : 'Add New User'}</DialogTitle>
-                <DialogContent>
-                    <Box sx={{ mt: 1 }}>
-                        <UserForm
-                            initialValues={selectedUser}
-                            onSubmit={handleSaveUser}
-                            onCancel={() => setOpenDialog(false)}
-                        />
-                    </Box>
-                </DialogContent>
-            </Dialog>
+            {/* Pagination Controls */}
+            {maxPage > 1 && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                    <Pagination
+                        count={maxPage}
+                        page={currentPage}
+                        onChange={(_, page) => jump(page)}
+                        color="primary"
+                    />
+                </Box>
+            )}
+
+            <Modal
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+                title={selectedUser ? 'Edit User' : 'Add New User'}
+                maxWidth="md"
+            >
+                <Box sx={{ mt: 1 }}>
+                    <UserForm
+                        initialValues={selectedUser}
+                        onSubmit={handleSaveUser}
+                        onCancel={() => setOpenDialog(false)}
+                    />
+                </Box>
+            </Modal>
         </Box>
     );
 };
