@@ -2,7 +2,7 @@
 
 > **Human Resource Management System** - Admin Dashboard & Employee Portal
 
-A modern, full-featured HRM system built with React, TypeScript, and Material-UI. This project includes both an Admin Dashboard for HR management and an Employee Portal for self-service features.
+A modern, full-featured HRM system built with React, TypeScript, and Tailwind CSS. This project includes both an Admin Dashboard for HR management and an Employee Portal for self-service features.
 
 ---
 
@@ -49,7 +49,7 @@ A modern, full-featured HRM system built with React, TypeScript, and Material-UI
 | **Redux Toolkit**   | 1.9+    | Global State Management |
 | **React Query**     | 5.0+    | Server State & Caching  |
 | **React Router**    | 6.16+   | Client-side Routing     |
-| **Material-UI**     | 5.14+   | UI Component Library    |
+| **Tailwind CSS**    | 3.4+    | Utility-First CSS Framework |
 | **React Hook Form** | 7.47+   | Form Management         |
 | **Yup**             | 1.3+    | Schema Validation       |
 | **Axios**           | 1.5+    | HTTP Client             |
@@ -417,7 +417,7 @@ Detailed documentation is available in the `/docs` folder:
 
 - **Component Structure**: Functional components with TypeScript
 - **State Management**: Redux for global state, React Query for server state
-- **Styling**: Material-UI with custom theme
+- **Styling**: Tailwind CSS with custom configuration
 - **Forms**: React Hook Form + Yup validation
 - **Code Quality**: ESLint + Prettier + TypeScript strict mode
 - **Testing**: Unit tests for components, E2E tests for critical flows
