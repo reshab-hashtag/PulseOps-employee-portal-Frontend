@@ -1,18 +1,18 @@
-import React, { Suspense, lazy } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import MainLayout from './components/layout/MainLayout';
-import LoadingSpinner from './components/common/LoadingSpinner';
+import React, { Suspense, lazy } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MainLayout from "./components/layout/MainLayout";
+import LoadingSpinner from "./components/common/LoadingSpinner";
 
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Users = lazy(() => import('./pages/Users'));
-const UserProfile = lazy(() => import('./pages/Users/UserProfile'));
-const Login = lazy(() => import('./pages/Login'));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Users = lazy(() => import("./pages/Users"));
+const UserProfile = lazy(() => import("./pages/Users/UserProfile"));
+const Login = lazy(() => import("./pages/Login"));
 
 const Loading = () => <LoadingSpinner fullScreen />;
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     children: [
       {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'users',
+        path: "users",
         element: (
           <Suspense fallback={<Loading />}>
             <Users />
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'users/:id',
+        path: "users/:id",
         element: (
           <Suspense fallback={<Loading />}>
             <UserProfile />
@@ -40,18 +40,22 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '*',
+        path: "*",
         element: (
           <div className="p-8 text-center">
-            <h2 className="text-2xl font-semibold text-foreground mb-2">Page Under Construction</h2>
-            <p className="text-foreground-secondary">This page is coming soon.</p>
+            <h2 className="text-2xl font-semibold text-foreground mb-2">
+              Page Under Construction
+            </h2>
+            <p className="text-foreground-secondary">
+              This page is coming soon.
+            </p>
           </div>
-        )
-      }
+        ),
+      },
     ],
   },
   {
-    path: '/login',
+    path: "/login",
     element: (
       <Suspense fallback={<Loading />}>
         <Login />

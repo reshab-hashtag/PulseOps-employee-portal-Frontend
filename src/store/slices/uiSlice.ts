@@ -1,15 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
-    name: 'ui',
-    initialState: {
-        sidebarOpen: true,
+  name: "ui",
+  initialState: {
+    sidebarOpen: true,
+  },
+  reducers: {
+    toggleSidebar: (state) => {
+      state.sidebarOpen = !state.sidebarOpen;
     },
-    reducers: {
-        toggleSidebar: (state) => {
-            state.sidebarOpen = !state.sidebarOpen;
-        },
-    },
+  },
 });
 
 export const { toggleSidebar } = uiSlice.actions;

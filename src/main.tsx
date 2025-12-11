@@ -1,16 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { store } from './store/store';
-import App from './App';
-import './styles/global.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { store } from "./store/store";
+import App from "./App";
+import "./styles/global.css";
 
 // Initialize Mirage JS mock server in development
 async function enableMocking() {
   if (import.meta.env.DEV) {
-    const { makeServer } = await import('./mocks/server');
-    makeServer({ environment: 'development' });
+    const { makeServer } = await import("./mocks/server");
+    makeServer({ environment: "development" });
   }
 }
 
@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
 });
 
 enableMocking().then(() => {
-  ReactDOM.createRoot(document.getElementById('root')!).render(
+  ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>

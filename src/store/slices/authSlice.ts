@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { User } from '../../types/user.types';
-import { authService } from '../../services/authService';
-import type { LoginCredentials } from '../../services/authService';
-import { tokenStorage } from '../../services/api';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { User } from "../../types/user.types";
+import { authService } from "../../services/authService";
+import type { LoginCredentials } from "../../services/authService";
+import { tokenStorage } from "../../services/api";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -21,12 +21,12 @@ const initialState: AuthState = {
 
 // Async thunks
 export const login = createAsyncThunk(
-  'auth/login',
+  "auth/login",
   async (credentials: LoginCredentials, { rejectWithValue }) => {
     try {
       const response = await authService.login(credentials);
       if (!response.success) {
-        return rejectWithValue('Login failed');
+        return rejectWithValue("Login failed");
       }
       return response.data;
     } catch (error) {
@@ -34,42 +34,53 @@ export const login = createAsyncThunk(
         return rejectWithValue(error.message);
       }
       // Handle axios error response
-      const axiosError = error as { response?: { data?: { error?: { message?: string } } } };
-      const message = axiosError.response?.data?.error?.message || 'Invalid email or password';
+      const axiosError = error as {
+        response?: { data?: { error?: { message?: string } } };
+      };
+      const message =
+        axiosError.response?.data?.error?.message ||
+        "Invalid email or password";
       return rejectWithValue(message);
     }
-  }
+  },
 );
 
-export const logout = createAsyncThunk('auth/logout', async () => {
+export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
 });
 
 export const fetchCurrentUser = createAsyncThunk(
-  'auth/fetchCurrentUser',
+  "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
       const response = await authService.getCurrentUser();
       return response.data.user;
     } catch {
       tokenStorage.clearTokens();
-      return rejectWithValue('Failed to fetch user');
+      return rejectWithValue("Failed to fetch user");
     }
-  }
+  },
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     loginSuccess: (
       state,
-      action: PayloadAction<{ user: User; accessToken: string; refreshToken: string }>
+      action: PayloadAction<{
+        user: User;
+        accessToken: string;
+        refreshToken: string;
+      }>,
     ) => {
       state.isAuthenticated = true;
       state.user = action.payload.user;
       state.error = null;
-      tokenStorage.setTokens(action.payload.accessToken, action.payload.refreshToken);
+      tokenStorage.setTokens(
+        action.payload.accessToken,
+        action.payload.refreshToken,
+      );
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;

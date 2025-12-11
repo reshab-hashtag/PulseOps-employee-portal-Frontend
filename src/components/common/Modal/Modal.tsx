@@ -1,7 +1,7 @@
-import React, { useEffect, useCallback } from 'react';
-import type { ReactNode } from 'react';
-import { X } from 'lucide-react';
-import { cn } from '../../../lib/utils';
+import React, { useEffect, useCallback } from "react";
+import type { ReactNode } from "react";
+import { X } from "lucide-react";
+import { cn } from "../../../lib/utils";
 
 interface ModalProps {
   open: boolean;
@@ -9,15 +9,15 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   actions?: ReactNode;
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: "xs" | "sm" | "md" | "lg" | "xl";
 }
 
 const maxWidthClasses = {
-  xs: 'max-w-xs',
-  sm: 'max-w-sm',
-  md: 'max-w-md',
-  lg: 'max-w-lg',
-  xl: 'max-w-xl',
+  xs: "max-w-xs",
+  sm: "max-w-sm",
+  md: "max-w-md",
+  lg: "max-w-lg",
+  xl: "max-w-xl",
 };
 
 const Modal: React.FC<ModalProps> = ({
@@ -26,25 +26,25 @@ const Modal: React.FC<ModalProps> = ({
   title,
   children,
   actions,
-  maxWidth = 'sm',
+  maxWidth = "sm",
 }) => {
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose();
       }
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {
     if (open) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [open, handleEscape]);
 
@@ -62,8 +62,8 @@ const Modal: React.FC<ModalProps> = ({
       {/* Modal content */}
       <div
         className={cn(
-          'relative bg-surface rounded-lg shadow-lg w-full mx-4 animate-in',
-          maxWidthClasses[maxWidth]
+          "relative bg-surface rounded-lg shadow-lg w-full mx-4 animate-in",
+          maxWidthClasses[maxWidth],
         )}
         role="dialog"
         aria-modal="true"
@@ -71,7 +71,10 @@ const Modal: React.FC<ModalProps> = ({
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
-          <h2 id="modal-title" className="text-lg font-semibold text-foreground">
+          <h2
+            id="modal-title"
+            className="text-lg font-semibold text-foreground"
+          >
             {title}
           </h2>
           <button

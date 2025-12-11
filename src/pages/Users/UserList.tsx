@@ -1,59 +1,72 @@
-import React, { useState } from 'react';
-import { Plus, Search, Edit, Trash2, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import type { User, UserStatus } from '../../types/user.types';
-import UserForm from './UserForm';
-import { usePagination } from '../../hooks/usePagination';
-import { cn } from '../../lib/utils';
-import Button from '../../components/common/Button';
-import Modal from '../../components/common/Modal';
-import Table from '../../components/common/Table';
+import React, { useState } from "react";
+import {
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  Eye,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import type { User, UserStatus } from "../../types/user.types";
+import UserForm from "./UserForm";
+import { usePagination } from "../../hooks/usePagination";
+import { cn } from "../../lib/utils";
+import Button from "../../components/common/Button";
+import Modal from "../../components/common/Modal";
+import Table from "../../components/common/Table";
 
 const INITIAL_USERS: User[] = [
   {
-    id: '1',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    role: 'admin',
-    department: 'IT',
-    designation: 'Senior Developer',
-    status: 'active',
-    joinDate: '2023-01-15',
+    id: "1",
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    role: "admin",
+    department: "IT",
+    designation: "Senior Developer",
+    status: "active",
+    joinDate: "2023-01-15",
   },
   {
-    id: '2',
-    firstName: 'Jane',
-    lastName: 'Smith',
-    email: 'jane.smith@example.com',
-    role: 'hr',
-    department: 'Human Resources',
-    designation: 'HR Manager',
-    status: 'active',
-    joinDate: '2023-03-10',
+    id: "2",
+    firstName: "Jane",
+    lastName: "Smith",
+    email: "jane.smith@example.com",
+    role: "hr",
+    department: "Human Resources",
+    designation: "HR Manager",
+    status: "active",
+    joinDate: "2023-03-10",
   },
   {
-    id: '3',
-    firstName: 'Robert',
-    lastName: 'Brown',
-    email: 'robert.brown@example.com',
-    role: 'employee',
-    department: 'Finance',
-    designation: 'Accountant',
-    status: 'on_leave',
-    joinDate: '2023-06-20',
+    id: "3",
+    firstName: "Robert",
+    lastName: "Brown",
+    email: "robert.brown@example.com",
+    role: "employee",
+    department: "Finance",
+    designation: "Accountant",
+    status: "on_leave",
+    joinDate: "2023-06-20",
   },
 ];
 
 const getStatusBadge = (status: UserStatus) => {
   const styles = {
-    active: 'badge-success',
-    inactive: 'bg-muted text-foreground-secondary',
-    on_leave: 'badge-warning',
+    active: "badge-success",
+    inactive: "bg-muted text-foreground-secondary",
+    on_leave: "badge-warning",
   };
   return (
-    <span className={cn('px-3 py-1 rounded-full text-xs font-semibold', styles[status])}>
-      {status.replace('_', ' ').toUpperCase()}
+    <span
+      className={cn(
+        "px-3 py-1 rounded-full text-xs font-semibold",
+        styles[status],
+      )}
+    >
+      {status.replace("_", " ").toUpperCase()}
     </span>
   );
 };
@@ -67,9 +80,11 @@ const getRoleBadge = (role: string) => (
 const UserList: React.FC = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState<User[]>(INITIAL_USERS);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<Partial<User> | undefined>(undefined);
+  const [selectedUser, setSelectedUser] = useState<Partial<User> | undefined>(
+    undefined,
+  );
 
   const handleAddUser = () => {
     setSelectedUser(undefined);
@@ -82,38 +97,46 @@ const UserList: React.FC = () => {
   };
 
   const handleDeleteUser = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(u => u.id !== id));
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      setUsers(users.filter((u) => u.id !== id));
     }
   };
 
   const handleSaveUser = (data: Partial<User>) => {
     if (selectedUser?.id) {
-      setUsers(users.map(u => u.id === selectedUser.id ? { ...u, ...data } as User : u));
+      setUsers(
+        users.map((u) =>
+          u.id === selectedUser.id ? ({ ...u, ...data } as User) : u,
+        ),
+      );
     } else {
       const newUser: User = {
         ...data,
         id: Math.random().toString(36).substr(2, 9),
-        status: 'active',
-        joinDate: new Date().toISOString().split('T')[0],
+        status: "active",
+        joinDate: new Date().toISOString().split("T")[0],
       } as User;
       setUsers([...users, newUser]);
     }
     setOpenDialog(false);
   };
 
-  const filteredUsers = users.filter(user =>
-    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredUsers = users.filter(
+    (user) =>
+      user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const { currentData, currentPage, maxPage, jump } = usePagination(filteredUsers, 5);
+  const { currentData, currentPage, maxPage, jump } = usePagination(
+    filteredUsers,
+    5,
+  );
 
   const columns = [
     {
-      id: 'name',
-      label: 'Name',
+      id: "name",
+      label: "Name",
       format: (_: unknown, row: User) => (
         <button
           onClick={() => navigate(`/users/${row.id}`)}
@@ -124,24 +147,24 @@ const UserList: React.FC = () => {
           </div>
           <div className="text-sm text-foreground-secondary">{row.email}</div>
         </button>
-      )
+      ),
     },
     {
-      id: 'role',
-      label: 'Role',
-      format: (value: unknown) => getRoleBadge(value as string)
+      id: "role",
+      label: "Role",
+      format: (value: unknown) => getRoleBadge(value as string),
     },
-    { id: 'department', label: 'Department' },
+    { id: "department", label: "Department" },
     {
-      id: 'status',
-      label: 'Status',
-      format: (value: unknown) => getStatusBadge(value as UserStatus)
+      id: "status",
+      label: "Status",
+      format: (value: unknown) => getStatusBadge(value as UserStatus),
     },
-    { id: 'joinDate', label: 'Join Date' },
+    { id: "joinDate", label: "Join Date" },
     {
-      id: 'actions',
-      label: 'Actions',
-      align: 'right' as const,
+      id: "actions",
+      label: "Actions",
+      align: "right" as const,
       format: (_: unknown, row: User) => (
         <div className="flex items-center justify-end gap-1">
           <button
@@ -166,15 +189,18 @@ const UserList: React.FC = () => {
             <Trash2 className="w-4 h-4 text-error" />
           </button>
         </div>
-      )
-    }
+      ),
+    },
   ];
 
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h1 className="text-2xl font-bold text-foreground">Users</h1>
-        <Button onClick={handleAddUser} startIcon={<Plus className="w-4 h-4" />}>
+        <Button
+          onClick={handleAddUser}
+          startIcon={<Plus className="w-4 h-4" />}
+        >
           Add User
         </Button>
       </div>
@@ -208,10 +234,10 @@ const UserList: React.FC = () => {
               key={page}
               onClick={() => jump(page)}
               className={cn(
-                'w-10 h-10 rounded-md font-medium transition-colors',
+                "w-10 h-10 rounded-md font-medium transition-colors",
                 currentPage === page
-                  ? 'bg-primary text-white'
-                  : 'hover:bg-muted'
+                  ? "bg-primary text-white"
+                  : "hover:bg-muted",
               )}
             >
               {page}
@@ -230,7 +256,7 @@ const UserList: React.FC = () => {
       <Modal
         open={openDialog}
         onClose={() => setOpenDialog(false)}
-        title={selectedUser ? 'Edit User' : 'Add New User'}
+        title={selectedUser ? "Edit User" : "Add New User"}
         maxWidth="lg"
       >
         <UserForm

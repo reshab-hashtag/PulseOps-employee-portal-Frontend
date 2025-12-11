@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone, Building, BadgeCheck, Loader2 } from 'lucide-react';
-import type { User } from '../../types/user.types';
-import Button from '../../components/common/Button';
-import { cn } from '../../lib/utils';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  Mail,
+  Phone,
+  Building,
+  BadgeCheck,
+  Loader2,
+} from "lucide-react";
+import type { User } from "../../types/user.types";
+import Button from "../../components/common/Button";
+import { cn } from "../../lib/utils";
 
 const UserProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,16 +24,16 @@ const UserProfile: React.FC = () => {
       try {
         setTimeout(() => {
           setUser({
-            id: '1',
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'john.doe@example.com',
-            role: 'admin',
-            department: 'IT',
-            designation: 'Senior Developer',
-            status: 'active',
-            joinDate: '2023-01-15',
-            phoneNumber: '+1 234 567 8900'
+            id: "1",
+            firstName: "John",
+            lastName: "Doe",
+            email: "john.doe@example.com",
+            role: "admin",
+            department: "IT",
+            designation: "Senior Developer",
+            status: "active",
+            joinDate: "2023-01-15",
+            phoneNumber: "+1 234 567 8900",
           });
           setLoading(false);
         }, 1000);
@@ -56,17 +63,17 @@ const UserProfile: React.FC = () => {
   }
 
   const infoItems = [
-    { icon: Mail, label: 'Email', value: user.email },
-    { icon: Phone, label: 'Phone', value: user.phoneNumber || 'N/A' },
-    { icon: Building, label: 'Department', value: user.department },
-    { icon: BadgeCheck, label: 'Role', value: user.role },
+    { icon: Mail, label: "Email", value: user.email },
+    { icon: Phone, label: "Phone", value: user.phoneNumber || "N/A" },
+    { icon: Building, label: "Department", value: user.department },
+    { icon: BadgeCheck, label: "Role", value: user.role },
   ];
 
   return (
     <div className="space-y-6">
       <Button
         variant="ghost"
-        onClick={() => navigate('/users')}
+        onClick={() => navigate("/users")}
         startIcon={<ArrowLeft className="w-4 h-4" />}
       >
         Back to Users
@@ -85,10 +92,10 @@ const UserProfile: React.FC = () => {
             <p className="text-foreground-secondary mb-3">{user.designation}</p>
             <span
               className={cn(
-                'px-4 py-1.5 rounded-full text-sm font-semibold',
-                user.status === 'active'
-                  ? 'bg-success/10 text-success'
-                  : 'bg-muted text-foreground-secondary'
+                "px-4 py-1.5 rounded-full text-sm font-semibold",
+                user.status === "active"
+                  ? "bg-success/10 text-success"
+                  : "bg-muted text-foreground-secondary",
               )}
             >
               {user.status.toUpperCase()}
@@ -108,8 +115,12 @@ const UserProfile: React.FC = () => {
                       <Icon className="w-5 h-5 text-foreground-secondary" />
                     </div>
                     <div>
-                      <p className="text-xs text-foreground-secondary">{label}</p>
-                      <p className="font-medium text-foreground capitalize">{value}</p>
+                      <p className="text-xs text-foreground-secondary">
+                        {label}
+                      </p>
+                      <p className="font-medium text-foreground capitalize">
+                        {value}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -126,8 +137,12 @@ const UserProfile: React.FC = () => {
                   <p className="font-medium text-foreground">{user.joinDate}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-foreground-secondary">Employee ID</p>
-                  <p className="font-medium text-foreground">EMP-{user.id.padStart(4, '0')}</p>
+                  <p className="text-xs text-foreground-secondary">
+                    Employee ID
+                  </p>
+                  <p className="font-medium text-foreground">
+                    EMP-{user.id.padStart(4, "0")}
+                  </p>
                 </div>
               </div>
             </div>

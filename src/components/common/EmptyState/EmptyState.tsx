@@ -1,7 +1,7 @@
-import React from 'react';
-import type { ReactNode } from 'react';
-import { Inbox } from 'lucide-react';
-import { cn } from '../../../lib/utils';
+import React from "react";
+import type { ReactNode } from "react";
+import { Inbox } from "lucide-react";
+import { cn } from "../../../lib/utils";
 
 interface EmptyStateProps {
   title?: string;
@@ -12,8 +12,8 @@ interface EmptyStateProps {
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
-  title = 'No Data Found',
-  description = 'There are no items to display.',
+  title = "No Data Found",
+  description = "There are no items to display.",
   icon = <Inbox className="w-16 h-16 text-foreground-tertiary" />,
   action,
   className,
@@ -21,8 +21,8 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center p-8 text-center h-full min-h-[200px]',
-        className
+        "flex flex-col items-center justify-center p-8 text-center h-full min-h-[200px]",
+        className,
       )}
     >
       <div className="mb-4">{icon}</div>

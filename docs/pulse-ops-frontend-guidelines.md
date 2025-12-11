@@ -1,6 +1,7 @@
 # Pulse Ops - Frontend Development Guidelines
 
 ## Table of Contents
+
 1. [Technology Stack](#technology-stack)
 2. [Project Structure](#project-structure)
 3. [Coding Standards](#coding-standards)
@@ -20,19 +21,20 @@
 ## Technology Stack
 
 ### Core Technologies
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| React | 18.2+ | UI Framework |
-| TypeScript | 5.0+ | Type Safety |
-| Vite | 4.5+ | Build Tool |
-| Redux Toolkit | 1.9+ | Global State |
-| React Query | 5.0+ | Server State & Caching |
-| React Router | 6.16+ | Routing |
-| Material-UI | 5.14+ | UI Components |
-| React Hook Form | 7.47+ | Forms |
-| Yup | 1.3+ | Validation |
-| Axios | 1.5+ | HTTP Client |
-| date-fns | 2.30+ | Date Utilities |
+
+| Technology      | Version | Purpose                |
+| --------------- | ------- | ---------------------- |
+| React           | 18.2+   | UI Framework           |
+| TypeScript      | 5.0+    | Type Safety            |
+| Vite            | 4.5+    | Build Tool             |
+| Redux Toolkit   | 1.9+    | Global State           |
+| React Query     | 5.0+    | Server State & Caching |
+| React Router    | 6.16+   | Routing                |
+| Material-UI     | 5.14+   | UI Components          |
+| React Hook Form | 7.47+   | Forms                  |
+| Yup             | 1.3+    | Validation             |
+| Axios           | 1.5+    | HTTP Client            |
+| date-fns        | 2.30+   | Date Utilities         |
 
 ---
 
@@ -117,16 +119,16 @@ src/
 
 ### File Naming Conventions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Components | PascalCase | `UserCard.tsx` |
-| Pages | PascalCase | `Dashboard.tsx` |
-| Hooks | camelCase with `use` prefix | `useAuth.ts` |
-| Services | camelCase with `Service` suffix | `userService.ts` |
-| Utilities | camelCase | `helpers.ts` |
-| Types | camelCase with `.types` suffix | `user.types.ts` |
-| Test files | Same name with `.test` suffix | `Button.test.tsx` |
-| Styles | Same name with `.styles` suffix | `Button.styles.ts` |
+| Type       | Convention                      | Example            |
+| ---------- | ------------------------------- | ------------------ |
+| Components | PascalCase                      | `UserCard.tsx`     |
+| Pages      | PascalCase                      | `Dashboard.tsx`    |
+| Hooks      | camelCase with `use` prefix     | `useAuth.ts`       |
+| Services   | camelCase with `Service` suffix | `userService.ts`   |
+| Utilities  | camelCase                       | `helpers.ts`       |
+| Types      | camelCase with `.types` suffix  | `user.types.ts`    |
+| Test files | Same name with `.test` suffix   | `Button.test.tsx`  |
+| Styles     | Same name with `.styles` suffix | `Button.styles.ts` |
 
 ---
 
@@ -141,7 +143,7 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
-  role: 'admin' | 'employee' | 'manager';
+  role: "admin" | "employee" | "manager";
   isActive: boolean;
 }
 
@@ -155,7 +157,7 @@ const processData = (data: any) => {}; // DON'T DO THIS
 
 // GOOD: Use 'unknown' and narrow the type
 const processData = (data: unknown) => {
-  if (typeof data === 'string') {
+  if (typeof data === "string") {
     // Now TypeScript knows data is a string
   }
 };
@@ -165,7 +167,7 @@ const processData = (data: unknown) => {
 
 ```typescript
 // Variables and functions: camelCase
-const userName = 'John';
+const userName = "John";
 const getUserById = (id: string) => {};
 
 // Components and Types: PascalCase
@@ -173,7 +175,7 @@ interface UserProfile {}
 const UserCard: React.FC<UserCardProps> = () => {};
 
 // Constants: UPPER_SNAKE_CASE
-const API_BASE_URL = 'https://api.pulseops.com';
+const API_BASE_URL = "https://api.pulseops.com";
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 // Boolean variables: prefix with is, has, should, can
@@ -197,37 +199,37 @@ const deleteUser = () => {};
 
 ```typescript
 // 1. React and core libraries
-import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 // 2. Third-party libraries
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { Box, Typography, Button } from '@mui/material';
-import { format } from 'date-fns';
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Box, Typography, Button } from "@mui/material";
+import { format } from "date-fns";
 
 // 3. Store/Redux
-import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { selectUser } from '@/store/slices/authSlice';
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectUser } from "@/store/slices/authSlice";
 
 // 4. Components
-import { Card, LoadingSpinner, Modal } from '@/components/common';
-import { UserForm } from '@/components/features/users';
+import { Card, LoadingSpinner, Modal } from "@/components/common";
+import { UserForm } from "@/components/features/users";
 
 // 5. Hooks
-import { useAuth, useDebounce } from '@/hooks';
+import { useAuth, useDebounce } from "@/hooks";
 
 // 6. Services
-import { userService } from '@/services/userService';
+import { userService } from "@/services/userService";
 
 // 7. Types
-import type { User, CreateUserPayload } from '@/types';
+import type { User, CreateUserPayload } from "@/types";
 
 // 8. Utils/Constants
-import { formatDate, formatCurrency } from '@/utils/formatters';
-import { API_ENDPOINTS } from '@/utils/constants';
+import { formatDate, formatCurrency } from "@/utils/formatters";
+import { API_ENDPOINTS } from "@/utils/constants";
 
 // 9. Styles (if applicable)
-import './UserList.styles.css';
+import "./UserList.styles.css";
 ```
 
 ---
@@ -238,9 +240,9 @@ import './UserList.styles.css';
 
 ```tsx
 // UserCard.tsx
-import React, { memo } from 'react';
-import { Card, Typography, Avatar, Chip } from '@mui/material';
-import type { User } from '@/types';
+import React, { memo } from "react";
+import { Card, Typography, Avatar, Chip } from "@mui/material";
+import type { User } from "@/types";
 
 // 1. Define Props Interface
 interface UserCardProps {
@@ -251,45 +253,42 @@ interface UserCardProps {
 }
 
 // 2. Define Component with explicit return type
-export const UserCard: React.FC<UserCardProps> = memo(({
-  user,
-  onEdit,
-  onDelete,
-  isLoading = false,
-}) => {
-  // 3. Hooks at the top
-  const navigate = useNavigate();
+export const UserCard: React.FC<UserCardProps> = memo(
+  ({ user, onEdit, onDelete, isLoading = false }) => {
+    // 3. Hooks at the top
+    const navigate = useNavigate();
 
-  // 4. Derived state
-  const fullName = `${user.firstName} ${user.lastName}`;
+    // 4. Derived state
+    const fullName = `${user.firstName} ${user.lastName}`;
 
-  // 5. Event handlers
-  const handleEdit = () => {
-    onEdit?.(user.id);
-  };
+    // 5. Event handlers
+    const handleEdit = () => {
+      onEdit?.(user.id);
+    };
 
-  const handleDelete = () => {
-    onDelete?.(user.id);
-  };
+    const handleDelete = () => {
+      onDelete?.(user.id);
+    };
 
-  // 6. Early returns for loading/error states
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+    // 6. Early returns for loading/error states
+    if (isLoading) {
+      return <LoadingSpinner />;
+    }
 
-  // 7. Main render
-  return (
-    <Card>
-      <Avatar src={user.profilePicture} />
-      <Typography variant="h6">{fullName}</Typography>
-      <Typography variant="body2">{user.email}</Typography>
-      <Chip label={user.role} />
-    </Card>
-  );
-});
+    // 7. Main render
+    return (
+      <Card>
+        <Avatar src={user.profilePicture} />
+        <Typography variant="h6">{fullName}</Typography>
+        <Typography variant="body2">{user.email}</Typography>
+        <Chip label={user.role} />
+      </Card>
+    );
+  },
+);
 
 // 8. Display name for debugging
-UserCard.displayName = 'UserCard';
+UserCard.displayName = "UserCard";
 ```
 
 ### Component Do's and Don'ts
@@ -340,12 +339,12 @@ const useActiveAdmins = (users: User[]) => {
 
 ### Component Size Guidelines
 
-| Guideline | Limit |
-|-----------|-------|
-| Component lines | Max 150-200 lines |
-| Props | Max 7-10 props (consider composition) |
-| Nested ternaries | Max 1 level |
-| useEffect per component | Max 3-4 |
+| Guideline               | Limit                                 |
+| ----------------------- | ------------------------------------- |
+| Component lines         | Max 150-200 lines                     |
+| Props                   | Max 7-10 props (consider composition) |
+| Nested ternaries        | Max 1 level                           |
+| useEffect per component | Max 3-4                               |
 
 ---
 
@@ -353,21 +352,21 @@ const useActiveAdmins = (users: User[]) => {
 
 ### When to Use What
 
-| State Type | Tool | Example |
-|------------|------|---------|
-| Local UI state | useState | Modal open/close, form inputs |
-| Complex local state | useReducer | Multi-step forms |
-| Global app state | Redux | User session, UI preferences |
-| Server state | React Query | API data, caching |
-| URL state | React Router | Filters, pagination |
+| State Type          | Tool         | Example                       |
+| ------------------- | ------------ | ----------------------------- |
+| Local UI state      | useState     | Modal open/close, form inputs |
+| Complex local state | useReducer   | Multi-step forms              |
+| Global app state    | Redux        | User session, UI preferences  |
+| Server state        | React Query  | API data, caching             |
+| URL state           | React Router | Filters, pagination           |
 
 ### Redux Slice Example
 
 ```typescript
 // store/slices/authSlice.ts
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import type { User } from '@/types';
-import { authService } from '@/services/authService';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import type { User } from "@/types";
+import { authService } from "@/services/authService";
 
 interface AuthState {
   user: User | null;
@@ -385,19 +384,22 @@ const initialState: AuthState = {
 
 // Async thunk for login
 export const loginUser = createAsyncThunk(
-  'auth/login',
-  async (credentials: { username: string; password: string }, { rejectWithValue }) => {
+  "auth/login",
+  async (
+    credentials: { username: string; password: string },
+    { rejectWithValue },
+  ) => {
     try {
       const response = await authService.login(credentials);
       return response.data;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }
-  }
+  },
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
@@ -430,7 +432,8 @@ export const { logout, clearError } = authSlice.actions;
 
 // Selectors
 export const selectUser = (state: RootState) => state.auth.user;
-export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.auth.isAuthenticated;
 
 export default authSlice.reducer;
 ```
@@ -439,16 +442,16 @@ export default authSlice.reducer;
 
 ```typescript
 // hooks/useUsers.ts
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { userService } from '@/services/userService';
-import type { User, CreateUserPayload, UpdateUserPayload } from '@/types';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { userService } from "@/services/userService";
+import type { User, CreateUserPayload, UpdateUserPayload } from "@/types";
 
 // Query keys factory
 export const userKeys = {
-  all: ['users'] as const,
-  lists: () => [...userKeys.all, 'list'] as const,
+  all: ["users"] as const,
+  lists: () => [...userKeys.all, "list"] as const,
   list: (filters: UserFilters) => [...userKeys.lists(), filters] as const,
-  details: () => [...userKeys.all, 'detail'] as const,
+  details: () => [...userKeys.all, "detail"] as const,
   detail: (id: string) => [...userKeys.details(), id] as const,
 };
 
@@ -491,7 +494,9 @@ export const useUpdateUser = () => {
     mutationFn: ({ id, data }: { id: string; data: UpdateUserPayload }) =>
       userService.updateUser(id, data),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: userKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: userKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: userKeys.lists() });
     },
   });
@@ -506,9 +511,9 @@ export const useUpdateUser = () => {
 
 ```typescript
 // services/api.ts
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
-import { store } from '@/store/store';
-import { logout } from '@/store/slices/authSlice';
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
+import { store } from "@/store/store";
+import { logout } from "@/store/slices/authSlice";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -517,20 +522,20 @@ export const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30000,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
 // Request interceptor - add auth token
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response interceptor - handle errors
@@ -542,13 +547,16 @@ api.interceptors.response.use(
     // Handle 401 - try to refresh token
     if (error.response?.status === 401 && originalRequest) {
       try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        const response = await axios.post(`${API_BASE_URL}/auth/refresh-token`, {
-          refreshToken,
-        });
+        const refreshToken = localStorage.getItem("refreshToken");
+        const response = await axios.post(
+          `${API_BASE_URL}/auth/refresh-token`,
+          {
+            refreshToken,
+          },
+        );
 
         const { accessToken } = response.data.data;
-        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem("accessToken", accessToken);
 
         // Retry original request
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
@@ -556,14 +564,14 @@ api.interceptors.response.use(
       } catch (refreshError) {
         // Refresh failed - logout user
         store.dispatch(logout());
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        window.location.href = "/login";
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 ```
 
@@ -571,8 +579,13 @@ api.interceptors.response.use(
 
 ```typescript
 // services/userService.ts
-import { api } from './api';
-import type { User, CreateUserPayload, UpdateUserPayload, PaginatedResponse } from '@/types';
+import { api } from "./api";
+import type {
+  User,
+  CreateUserPayload,
+  UpdateUserPayload,
+  PaginatedResponse,
+} from "@/types";
 
 interface UserFilters {
   page?: number;
@@ -585,10 +598,12 @@ interface UserFilters {
 
 export const userService = {
   // GET /api/users
-  getUsers: async (filters: UserFilters = {}): Promise<PaginatedResponse<User>> => {
+  getUsers: async (
+    filters: UserFilters = {},
+  ): Promise<PaginatedResponse<User>> => {
     const params = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {
-      if (value !== undefined && value !== '') {
+      if (value !== undefined && value !== "") {
         params.append(key, String(value));
       }
     });
@@ -605,7 +620,7 @@ export const userService = {
 
   // POST /api/users
   createUser: async (payload: CreateUserPayload): Promise<User> => {
-    const { data } = await api.post('/users', payload);
+    const { data } = await api.post("/users", payload);
     return data.data;
   },
 
@@ -630,42 +645,42 @@ export const userService = {
 
 ```typescript
 // styles/theme.ts
-import { createTheme } from '@mui/material';
+import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
+      main: "#1976d2",
+      light: "#42a5f5",
+      dark: "#1565c0",
     },
     secondary: {
-      main: '#9c27b0',
-      light: '#ba68c8',
-      dark: '#7b1fa2',
+      main: "#9c27b0",
+      light: "#ba68c8",
+      dark: "#7b1fa2",
     },
     success: {
-      main: '#2e7d32',
+      main: "#2e7d32",
     },
     error: {
-      main: '#d32f2f',
+      main: "#d32f2f",
     },
     warning: {
-      main: '#ed6c02',
+      main: "#ed6c02",
     },
     background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
+      default: "#f5f5f5",
+      paper: "#ffffff",
     },
   },
   typography: {
     fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: { fontSize: '2.5rem', fontWeight: 600 },
-    h2: { fontSize: '2rem', fontWeight: 600 },
-    h3: { fontSize: '1.75rem', fontWeight: 600 },
-    h4: { fontSize: '1.5rem', fontWeight: 600 },
-    h5: { fontSize: '1.25rem', fontWeight: 600 },
-    h6: { fontSize: '1rem', fontWeight: 600 },
+    h1: { fontSize: "2.5rem", fontWeight: 600 },
+    h2: { fontSize: "2rem", fontWeight: 600 },
+    h3: { fontSize: "1.75rem", fontWeight: 600 },
+    h4: { fontSize: "1.5rem", fontWeight: 600 },
+    h5: { fontSize: "1.25rem", fontWeight: 600 },
+    h6: { fontSize: "1rem", fontWeight: 600 },
   },
   shape: {
     borderRadius: 8,
@@ -674,7 +689,7 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: "none",
           fontWeight: 500,
         },
       },
@@ -682,7 +697,7 @@ export const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
         },
       },
     },
@@ -696,24 +711,24 @@ export const theme = createTheme({
 // GOOD: Use sx prop for one-off styles
 <Box
   sx={{
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     gap: 2,
     p: 2,
     borderRadius: 1,
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
   }}
 >
   {children}
-</Box>
+</Box>;
 
 // GOOD: Use styled for reusable styled components
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
   borderRadius: theme.shape.borderRadius,
-  '&:hover': {
+  "&:hover": {
     boxShadow: theme.shadows[4],
   },
 }));
@@ -721,14 +736,14 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 ### Spacing System
 
-| Spacing | Value | Usage |
-|---------|-------|-------|
-| 0 | 0px | No spacing |
-| 1 | 8px | Minimal spacing |
-| 2 | 16px | Default spacing |
-| 3 | 24px | Medium spacing |
-| 4 | 32px | Large spacing |
-| 5 | 40px | Extra large spacing |
+| Spacing | Value | Usage               |
+| ------- | ----- | ------------------- |
+| 0       | 0px   | No spacing          |
+| 1       | 8px   | Minimal spacing     |
+| 2       | 16px  | Default spacing     |
+| 3       | 24px  | Medium spacing      |
+| 4       | 32px  | Large spacing       |
+| 5       | 40px  | Extra large spacing |
 
 ```tsx
 // Use theme spacing
@@ -743,34 +758,32 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 ```tsx
 // components/features/users/UserForm.tsx
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { TextField, Button, Select, MenuItem } from '@mui/material';
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { TextField, Button, Select, MenuItem } from "@mui/material";
 
 // 1. Define validation schema
 const userSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('First name is required')
-    .min(2, 'First name must be at least 2 characters')
-    .max(50, 'First name must be at most 50 characters'),
+    .required("First name is required")
+    .min(2, "First name must be at least 2 characters")
+    .max(50, "First name must be at most 50 characters"),
   lastName: yup
     .string()
-    .required('Last name is required')
-    .min(2, 'Last name must be at least 2 characters'),
+    .required("Last name is required")
+    .min(2, "Last name must be at least 2 characters"),
   email: yup
     .string()
-    .required('Email is required')
-    .email('Must be a valid email'),
-  phone: yup
-    .string()
-    .matches(/^[+]?[\d\s-]+$/, 'Invalid phone number format'),
+    .required("Email is required")
+    .email("Must be a valid email"),
+  phone: yup.string().matches(/^[+]?[\d\s-]+$/, "Invalid phone number format"),
   role: yup
     .string()
-    .oneOf(['admin', 'manager', 'employee'], 'Invalid role')
-    .required('Role is required'),
-  department: yup.string().required('Department is required'),
+    .oneOf(["admin", "manager", "employee"], "Invalid role")
+    .required("Role is required"),
+  department: yup.string().required("Department is required"),
 });
 
 type UserFormData = yup.InferType<typeof userSchema>;
@@ -794,15 +807,15 @@ export const UserForm: React.FC<UserFormProps> = ({
   } = useForm<UserFormData>({
     resolver: yupResolver(userSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      role: 'employee',
-      department: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      role: "employee",
+      department: "",
       ...initialData,
     },
-    mode: 'onBlur', // Validate on blur
+    mode: "onBlur", // Validate on blur
   });
 
   const handleFormSubmit = (data: UserFormData) => {
@@ -861,12 +874,7 @@ export const UserForm: React.FC<UserFormProps> = ({
         name="role"
         control={control}
         render={({ field }) => (
-          <Select
-            {...field}
-            label="Role"
-            error={!!errors.role}
-            fullWidth
-          >
+          <Select {...field} label="Role" error={!!errors.role} fullWidth>
             <MenuItem value="admin">Admin</MenuItem>
             <MenuItem value="manager">Manager</MenuItem>
             <MenuItem value="employee">Employee</MenuItem>
@@ -880,7 +888,7 @@ export const UserForm: React.FC<UserFormProps> = ({
         disabled={isLoading || !isValid || !isDirty}
         sx={{ mt: 2 }}
       >
-        {isLoading ? 'Saving...' : 'Save'}
+        {isLoading ? "Saving..." : "Save"}
       </Button>
     </form>
   );
@@ -895,8 +903,8 @@ export const UserForm: React.FC<UserFormProps> = ({
 
 ```tsx
 // components/common/ErrorBoundary.tsx
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { Box, Typography, Button } from "@mui/material";
 
 interface Props {
   children: ReactNode;
@@ -916,7 +924,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+    console.error("Uncaught error:", error, errorInfo);
     // Send to error tracking service (e.g., Sentry)
   }
 
@@ -928,7 +936,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         this.props.fallback || (
-          <Box sx={{ p: 4, textAlign: 'center' }}>
+          <Box sx={{ p: 4, textAlign: "center" }}>
             <Typography variant="h5" color="error" gutterBottom>
               Something went wrong
             </Typography>
@@ -952,7 +960,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
 ```tsx
 // utils/errorHandler.ts
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 interface ApiError {
   code: string;
@@ -975,12 +983,12 @@ export const handleApiError = (error: unknown): void => {
         });
       }
     } else {
-      toast.error('An unexpected error occurred. Please try again.');
+      toast.error("An unexpected error occurred. Please try again.");
     }
   } else if (error instanceof Error) {
     toast.error(error.message);
   } else {
-    toast.error('An unexpected error occurred.');
+    toast.error("An unexpected error occurred.");
   }
 };
 
@@ -989,7 +997,7 @@ const { mutate, isLoading } = useMutation({
   mutationFn: userService.createUser,
   onError: handleApiError,
   onSuccess: () => {
-    toast.success('User created successfully');
+    toast.success("User created successfully");
   },
 });
 ```
@@ -1012,16 +1020,19 @@ const sortedUsers = useMemo(() => {
 }, [users]);
 
 // 3. Use useCallback for event handlers passed to children
-const handleDelete = useCallback((id: string) => {
-  deleteUser(id);
-}, [deleteUser]);
+const handleDelete = useCallback(
+  (id: string) => {
+    deleteUser(id);
+  },
+  [deleteUser],
+);
 
 // 4. Lazy load routes
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Users = lazy(() => import('./pages/Users'));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Users = lazy(() => import("./pages/Users"));
 
 // 5. Use virtualization for long lists
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList } from "react-window";
 
 const VirtualizedList = ({ items }) => (
   <FixedSizeList
@@ -1030,9 +1041,7 @@ const VirtualizedList = ({ items }) => (
     itemSize={50}
     width="100%"
   >
-    {({ index, style }) => (
-      <div style={style}>{items[index].name}</div>
-    )}
+    {({ index, style }) => <div style={style}>{items[index].name}</div>}
   </FixedSizeList>
 );
 
@@ -1052,14 +1061,14 @@ useEffect(() => {
 
 ### Security Checklist
 
-| Item | Implementation |
-|------|----------------|
-| XSS Prevention | Use React's built-in escaping, avoid `dangerouslySetInnerHTML` |
-| CSRF Protection | Include CSRF tokens in requests (handled by backend) |
-| Token Storage | Store tokens in localStorage with short expiry |
-| Input Validation | Validate all inputs with Yup before submission |
-| Sensitive Data | Never log sensitive data to console |
-| Dependencies | Keep dependencies updated, audit regularly |
+| Item             | Implementation                                                 |
+| ---------------- | -------------------------------------------------------------- |
+| XSS Prevention   | Use React's built-in escaping, avoid `dangerouslySetInnerHTML` |
+| CSRF Protection  | Include CSRF tokens in requests (handled by backend)           |
+| Token Storage    | Store tokens in localStorage with short expiry                 |
+| Input Validation | Validate all inputs with Yup before submission                 |
+| Sensitive Data   | Never log sensitive data to console                            |
+| Dependencies     | Keep dependencies updated, audit regularly                     |
 
 ```tsx
 // NEVER do this - XSS vulnerability
@@ -1102,15 +1111,18 @@ chore: Update dependencies
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] New feature
 - [ ] Bug fix
 - [ ] Refactoring
 - [ ] Documentation
 
 ## Testing Done
+
 - [ ] Tested locally
 - [ ] Added/updated tests
 - [ ] Cross-browser tested
@@ -1118,6 +1130,7 @@ Brief description of changes
 ## Screenshots (if applicable)
 
 ## Checklist
+
 - [ ] Code follows style guidelines
 - [ ] Self-reviewed code
 - [ ] Commented complex code
@@ -1130,6 +1143,7 @@ Brief description of changes
 ## Code Review Checklist
 
 ### Before Submitting PR
+
 - [ ] Code compiles without errors
 - [ ] No TypeScript errors or warnings
 - [ ] ESLint passes with no errors
@@ -1140,6 +1154,7 @@ Brief description of changes
 - [ ] No unused imports or variables
 
 ### Reviewer Checklist
+
 - [ ] Code is readable and self-documenting
 - [ ] Logic is correct
 - [ ] Error handling is appropriate

@@ -41,19 +41,19 @@ A modern, full-featured HRM system built with React, TypeScript, and Material-UI
 
 ### Core Technologies
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **React** | 18.2+ | UI Framework |
-| **TypeScript** | 5.0+ | Type Safety |
-| **Vite** | 4.5+ | Build Tool & Dev Server |
-| **Redux Toolkit** | 1.9+ | Global State Management |
-| **React Query** | 5.0+ | Server State & Caching |
-| **React Router** | 6.16+ | Client-side Routing |
-| **Material-UI** | 5.14+ | UI Component Library |
-| **React Hook Form** | 7.47+ | Form Management |
-| **Yup** | 1.3+ | Schema Validation |
-| **Axios** | 1.5+ | HTTP Client |
-| **date-fns** | 2.30+ | Date Utilities |
+| Technology          | Version | Purpose                 |
+| ------------------- | ------- | ----------------------- |
+| **React**           | 18.2+   | UI Framework            |
+| **TypeScript**      | 5.0+    | Type Safety             |
+| **Vite**            | 4.5+    | Build Tool & Dev Server |
+| **Redux Toolkit**   | 1.9+    | Global State Management |
+| **React Query**     | 5.0+    | Server State & Caching  |
+| **React Router**    | 6.16+   | Client-side Routing     |
+| **Material-UI**     | 5.14+   | UI Component Library    |
+| **React Hook Form** | 7.47+   | Form Management         |
+| **Yup**             | 1.3+    | Schema Validation       |
+| **Axios**           | 1.5+    | HTTP Client             |
+| **date-fns**        | 2.30+   | Date Utilities          |
 
 ### Development Tools
 
@@ -156,6 +156,7 @@ src/
 #### Week 1: Project Setup & Backend Foundation
 
 **Environment Setup**
+
 - [x] Initialize Git repository with proper .gitignore
 - [x] Set up frontend Admin project (React + Vite + TypeScript)
 - [x] Set up frontend Employee project (React + Vite + TypeScript)
@@ -167,6 +168,7 @@ src/
 #### Week 2: Authentication Frontend & User Management
 
 **Authentication Frontend (Day 6-7)**
+
 - [ ] Create Login page UI (Admin Dashboard)
 - [ ] Create Login page UI (Employee Portal)
 - [ ] Implement Redux auth slice for state management
@@ -179,6 +181,7 @@ src/
 - [ ] Test complete login flow end-to-end
 
 **User Management Frontend - Admin (Day 10)**
+
 - [ ] Create Users list page with data table
 - [ ] Implement pagination in user table
 - [ ] Create Add User modal/page form
@@ -189,6 +192,7 @@ src/
 - [ ] Connect all components to Redux/API
 
 **Phase 1 Deliverables:**
+
 - [ ] Users can log in to Admin Dashboard
 - [ ] Users can log in to Employee Portal
 - [ ] Session persists on page refresh
@@ -206,6 +210,7 @@ src/
 #### Week 3: Schedule & Attendance
 
 **Schedule Management Frontend - Admin (Day 13-14)**
+
 - [ ] Create Schedule list/calendar view page
 - [ ] Create Schedule creation form
 - [ ] Implement shift assignment grid
@@ -216,6 +221,7 @@ src/
 - [ ] Connect to Redux and API
 
 **Attendance Frontend - Admin (Day 16-17)**
+
 - [ ] Create live attendance dashboard
 - [ ] Show who's clocked in/out/on break
 - [ ] Create attendance records table
@@ -228,6 +234,7 @@ src/
 #### Week 4: Employee Portal Core
 
 **Employee Portal - Dashboard & Attendance (Day 18-19)**
+
 - [ ] Create Employee Dashboard layout
 - [ ] Create sidebar navigation
 - [ ] Create today's schedule widget
@@ -239,6 +246,7 @@ src/
 - [ ] Create attendance calendar view
 
 **Employee Portal - Schedule View (Day 20)**
+
 - [ ] Create My Schedule page
 - [ ] Display upcoming shifts in list view
 - [ ] Display shifts in calendar view
@@ -246,6 +254,7 @@ src/
 - [ ] Show shift details (client, location, time)
 
 **Phase 2 Deliverables:**
+
 - [ ] Admin can view all schedules
 - [ ] Admin can create new schedules with shifts
 - [ ] Conflicts shown before saving
@@ -263,6 +272,7 @@ src/
 #### Week 5: Leave Management
 
 **Leave Management Frontend (Day 23-24)**
+
 - [ ] Create Leave Requests list page (Admin)
 - [ ] Create approval/rejection dialog
 - [ ] Create Leave calendar view (Admin)
@@ -274,6 +284,7 @@ src/
 - [ ] Create Holiday calendar view (Employee)
 
 **Reimbursement Frontend (Day 26-27)**
+
 - [ ] Create Reimbursements queue page (Admin)
 - [ ] Create receipt image viewer modal
 - [ ] Create approval/rejection dialog
@@ -286,18 +297,21 @@ src/
 #### Week 6: Client Management & Announcements
 
 **Client Management (Day 28-29)**
+
 - [ ] Create Client list page (Admin)
 - [ ] Create Client form (add/edit)
 - [ ] Create employee assignment panel
 - [ ] Display client billing info
 
 **Announcements Module (Day 30)**
+
 - [ ] Create Announcements page (Admin)
 - [ ] Create Announcement composer form
 - [ ] Create Announcement feed (Employee)
 - [ ] Implement mark as read/acknowledge
 
 **Phase 3 Deliverables:**
+
 - [ ] Admin can view and approve/reject leaves
 - [ ] Employee can submit leave requests
 - [ ] Leave balance displayed
@@ -317,6 +331,7 @@ src/
 #### Week 7: Reports & Dashboard Analytics
 
 **Dashboard Frontend (Day 31-32)**
+
 - [ ] Create Admin Dashboard home page
 - [ ] Add stats cards (clocked in, late, absent)
 - [ ] Add pending approvals widget
@@ -325,18 +340,21 @@ src/
 - [ ] Finalize Employee dashboard widgets
 
 **Reports Module (Day 33-34)**
+
 - [ ] Create Reports page (Admin)
 - [ ] Create report filter form
 - [ ] Add download button for exports
 - [ ] Create employee performance summary
 
 **Timesheets Module (Day 35)**
+
 - [ ] Create Timesheet page (Admin)
 - [ ] Show hours by employee by week
 
 #### Week 8: Notifications, Settings & Polish
 
 **Notifications & Settings (Day 36-37)**
+
 - [ ] Create notification dropdown (Admin)
 - [ ] Create notification dropdown (Employee)
 - [ ] Create Settings page (Admin)
@@ -345,6 +363,7 @@ src/
 - [ ] Create Audit Log page
 
 **Employee Profile & Polish (Day 38-39)**
+
 - [ ] Create Profile page (Employee)
 - [ ] Create Edit Profile form (Employee)
 - [ ] Implement change password (Employee)
@@ -356,6 +375,7 @@ src/
 - [ ] Final UI cleanup
 
 **Integration Testing (Day 40-42)**
+
 - [ ] End-to-end testing: User management flow
 - [ ] End-to-end testing: Attendance flow
 - [ ] End-to-end testing: Leave flow
@@ -366,6 +386,7 @@ src/
 - [ ] Security review
 
 **Phase 4 Deliverables:**
+
 - [ ] Admin dashboard shows live stats
 - [ ] Pending approvals count visible
 - [ ] Charts display attendance trends

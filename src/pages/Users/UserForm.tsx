@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import type { User, UserRole } from '../../types/user.types';
-import Button from '../../components/common/Button';
-import Input from '../../components/common/Input';
-import { cn } from '../../lib/utils';
+import React, { useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import type { User, UserRole } from "../../types/user.types";
+import Button from "../../components/common/Button";
+import Input from "../../components/common/Input";
+import { cn } from "../../lib/utils";
 
 interface UserFormProps {
   initialValues?: Partial<User>;
@@ -15,12 +15,15 @@ interface UserFormProps {
 }
 
 const validationSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  role: yup.string().oneOf(['admin', 'hr', 'employee', 'manager']).required('Role is required'),
-  department: yup.string().required('Department is required'),
-  designation: yup.string().required('Designation is required'),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  role: yup
+    .string()
+    .oneOf(["admin", "hr", "employee", "manager"])
+    .required("Role is required"),
+  department: yup.string().required("Department is required"),
+  designation: yup.string().required("Designation is required"),
   phoneNumber: yup.string(),
 });
 
@@ -33,7 +36,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, error, helperText, children, className, id, ...props }, ref) => {
-    const selectId = id || label.toLowerCase().replace(/\s+/g, '-');
+    const selectId = id || label.toLowerCase().replace(/\s+/g, "-");
     return (
       <div className="mb-4">
         <label
@@ -46,40 +49,55 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           id={selectId}
           className={cn(
-            'w-full px-4 py-2.5 border rounded-md transition-all duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-            'bg-surface',
+            "w-full px-4 py-2.5 border rounded-md transition-all duration-200",
+            "focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
+            "bg-surface",
             error
-              ? 'border-error focus:ring-error'
-              : 'border-border hover:border-foreground-secondary',
-            className
+              ? "border-error focus:ring-error"
+              : "border-border hover:border-foreground-secondary",
+            className,
           )}
           {...props}
         >
           {children}
         </select>
         {helperText && (
-          <p className={cn('mt-1.5 text-xs', error ? 'text-error' : 'text-foreground-secondary')}>
+          <p
+            className={cn(
+              "mt-1.5 text-xs",
+              error ? "text-error" : "text-foreground-secondary",
+            )}
+          >
             {helperText}
           </p>
         )}
       </div>
     );
-  }
+  },
 );
-Select.displayName = 'Select';
+Select.displayName = "Select";
 
-const UserForm: React.FC<UserFormProps> = ({ initialValues, onSubmit, onCancel, isLoading }) => {
-  const { control, handleSubmit, reset, formState: { errors } } = useForm({
+const UserForm: React.FC<UserFormProps> = ({
+  initialValues,
+  onSubmit,
+  onCancel,
+  isLoading,
+}) => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      role: 'employee' as UserRole,
-      department: '',
-      designation: '',
-      phoneNumber: '',
+      firstName: "",
+      lastName: "",
+      email: "",
+      role: "employee" as UserRole,
+      department: "",
+      designation: "",
+      phoneNumber: "",
       ...initialValues,
     },
   });
@@ -192,7 +210,7 @@ const UserForm: React.FC<UserFormProps> = ({ initialValues, onSubmit, onCancel, 
           Cancel
         </Button>
         <Button type="submit" disabled={isLoading}>
-          {isLoading ? 'Saving...' : 'Save User'}
+          {isLoading ? "Saving..." : "Save User"}
         </Button>
       </div>
     </form>

@@ -1,7 +1,14 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Clock, Calendar, FileText, X } from 'lucide-react';
-import { cn } from '../../lib/utils';
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Users,
+  Clock,
+  Calendar,
+  FileText,
+  X,
+} from "lucide-react";
+import { cn } from "../../lib/utils";
 
 const DRAWER_WIDTH = 260;
 const HEADER_HEIGHT = 64; // 4rem = 64px
@@ -12,14 +19,17 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { text: 'Dashboard', icon: LayoutDashboard, path: '/' },
-  { text: 'Users', icon: Users, path: '/users' },
-  { text: 'Attendance', icon: Clock, path: '/attendance' },
-  { text: 'Schedule', icon: Calendar, path: '/schedule' },
-  { text: 'Leave', icon: FileText, path: '/leave' },
+  { text: "Dashboard", icon: LayoutDashboard, path: "/" },
+  { text: "Users", icon: Users, path: "/users" },
+  { text: "Attendance", icon: Clock, path: "/attendance" },
+  { text: "Schedule", icon: Calendar, path: "/schedule" },
+  { text: "Leave", icon: FileText, path: "/leave" },
 ];
 
-const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerToggle }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  mobileOpen,
+  handleDrawerToggle,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,11 +52,11 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerToggle }) => 
               key={item.text}
               onClick={() => handleNavigation(item.path)}
               className={cn(
-                'w-full flex items-center gap-4 px-5 py-3.5 text-left transition-all duration-200',
-                'border-l-4 hover:bg-white/10',
+                "w-full flex items-center gap-4 px-5 py-3.5 text-left transition-all duration-200",
+                "border-l-4 hover:bg-white/10",
                 isActive
-                  ? 'bg-white/15 border-accent font-semibold text-white'
-                  : 'border-transparent text-white/80 hover:text-white'
+                  ? "bg-white/15 border-accent font-semibold text-white"
+                  : "border-transparent text-white/80 hover:text-white",
               )}
             >
               <Icon className="w-5 h-5" />
@@ -80,8 +90,8 @@ const Sidebar: React.FC<SidebarProps> = ({ mobileOpen, handleDrawerToggle }) => 
       {/* Mobile drawer */}
       <aside
         className={cn(
-          'fixed left-0 bottom-0 z-40 transform transition-transform duration-300 md:hidden',
-          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+          "fixed left-0 bottom-0 z-40 transform transition-transform duration-300 md:hidden",
+          mobileOpen ? "translate-x-0" : "-translate-x-full",
         )}
         style={{ top: HEADER_HEIGHT, width: DRAWER_WIDTH }}
       >

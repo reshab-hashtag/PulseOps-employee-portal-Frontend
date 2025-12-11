@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { Eye, EyeOff, AlertCircle, Mail, Lock, Loader2 } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { login, clearError } from '../../store/slices/authSlice';
-import { cn } from '../../lib/utils';
-import logoAnimated from '../../assets/pulse-ops-logo-animated.mp4';
-import logoStatic from '../../assets/pulse-ops-logo.png';
+import React, { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { Eye, EyeOff, AlertCircle, Mail, Lock, Loader2 } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { login, clearError } from "../../store/slices/authSlice";
+import { cn } from "../../lib/utils";
+import logoAnimated from "../../assets/pulse-ops-logo-animated.mp4";
+import logoStatic from "../../assets/pulse-ops-logo.png";
 
 const loginSchema = yup.object({
-  email: yup.string().email('Please enter a valid email').required('Email is required'),
-  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
+  email: yup
+    .string()
+    .email("Please enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password must be at least 6 characters"),
 });
 
 type LoginFormData = yup.InferType<typeof loginSchema>;
@@ -21,7 +27,9 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const { isLoading, error, isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isLoading, error, isAuthenticated } = useAppSelector(
+    (state) => state.auth,
+  );
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -31,14 +39,16 @@ const Login: React.FC = () => {
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
   useEffect(() => {
     if (isAuthenticated) {
-      const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
+      const from =
+        (location.state as { from?: { pathname: string } })?.from?.pathname ||
+        "/";
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, navigate, location.state]);
@@ -76,7 +86,11 @@ const Login: React.FC = () => {
                   className="w-full h-full object-contain rounded-2xl"
                 >
                   <source src={logoAnimated} type="video/mp4" />
-                  <img src={logoStatic} alt="Pulse Ops Logo" className="w-full h-full object-contain" />
+                  <img
+                    src={logoStatic}
+                    alt="Pulse Ops Logo"
+                    className="w-full h-full object-contain"
+                  />
                 </video>
               </div>
               <h1 className="text-4xl font-bold mb-2">Pulse Ops</h1>
@@ -87,37 +101,73 @@ const Login: React.FC = () => {
             <div className="space-y-4 text-left mt-12">
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/15 transition-colors">
                 <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 </div>
                 <div>
                   <h3 className="font-semibold">Streamlined HR Operations</h3>
-                  <p className="text-sm text-white/70">Manage your workforce efficiently</p>
+                  <p className="text-sm text-white/70">
+                    Manage your workforce efficiently
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/15 transition-colors">
                 <div className="w-10 h-10 bg-success rounded-lg flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 </div>
                 <div>
                   <h3 className="font-semibold">Real-time Attendance</h3>
-                  <p className="text-sm text-white/70">Track attendance with precision</p>
+                  <p className="text-sm text-white/70">
+                    Track attendance with precision
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/15 transition-colors">
                 <div className="w-10 h-10 bg-info rounded-lg flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
                   </svg>
                 </div>
                 <div>
                   <h3 className="font-semibold">Analytics Dashboard</h3>
-                  <p className="text-sm text-white/70">Data-driven HR decisions</p>
+                  <p className="text-sm text-white/70">
+                    Data-driven HR decisions
+                  </p>
                 </div>
               </div>
             </div>
@@ -131,14 +181,20 @@ const Login: React.FC = () => {
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
             <div className="w-24 h-24 mx-auto mb-4 rounded-2xl overflow-hidden shadow-lg">
-              <img src={logoStatic} alt="Pulse Ops Logo" className="w-full h-full object-cover" />
+              <img
+                src={logoStatic}
+                alt="Pulse Ops Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
             <h1 className="text-2xl font-bold text-primary">Pulse Ops</h1>
           </div>
 
           {/* Welcome Text */}
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-foreground mb-2">Welcome back</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Welcome back
+            </h2>
             <p className="text-foreground-secondary">
               Sign in to your account to continue
             </p>
@@ -156,7 +212,10 @@ const Login: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-foreground mb-2"
+              >
                 Email Address
               </label>
               <Controller
@@ -174,25 +233,30 @@ const Login: React.FC = () => {
                       autoComplete="email"
                       placeholder="admin@pulseops.com"
                       className={cn(
-                        'w-full pl-12 pr-4 py-3.5 border rounded-xl transition-all duration-200',
-                        'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-                        'placeholder:text-foreground-tertiary bg-surface',
+                        "w-full pl-12 pr-4 py-3.5 border rounded-xl transition-all duration-200",
+                        "focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
+                        "placeholder:text-foreground-tertiary bg-surface",
                         errors.email
-                          ? 'border-error focus:ring-error'
-                          : 'border-border hover:border-foreground-secondary'
+                          ? "border-error focus:ring-error"
+                          : "border-border hover:border-foreground-secondary",
                       )}
                     />
                   </div>
                 )}
               />
               {errors.email && (
-                <p className="mt-2 text-sm text-error">{errors.email.message}</p>
+                <p className="mt-2 text-sm text-error">
+                  {errors.email.message}
+                </p>
               )}
             </div>
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-foreground mb-2"
+              >
                 Password
               </label>
               <Controller
@@ -206,16 +270,16 @@ const Login: React.FC = () => {
                     <input
                       {...field}
                       id="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
                       placeholder="Enter your password"
                       className={cn(
-                        'w-full pl-12 pr-12 py-3.5 border rounded-xl transition-all duration-200',
-                        'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-                        'placeholder:text-foreground-tertiary bg-surface',
+                        "w-full pl-12 pr-12 py-3.5 border rounded-xl transition-all duration-200",
+                        "focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
+                        "placeholder:text-foreground-tertiary bg-surface",
                         errors.password
-                          ? 'border-error focus:ring-error'
-                          : 'border-border hover:border-foreground-secondary'
+                          ? "border-error focus:ring-error"
+                          : "border-border hover:border-foreground-secondary",
                       )}
                     />
                     <button
@@ -234,7 +298,9 @@ const Login: React.FC = () => {
                 )}
               />
               {errors.password && (
-                <p className="mt-2 text-sm text-error">{errors.password.message}</p>
+                <p className="mt-2 text-sm text-error">
+                  {errors.password.message}
+                </p>
               )}
             </div>
 
@@ -245,7 +311,9 @@ const Login: React.FC = () => {
                   type="checkbox"
                   className="w-4 h-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0"
                 />
-                <span className="text-sm text-foreground-secondary">Remember me</span>
+                <span className="text-sm text-foreground-secondary">
+                  Remember me
+                </span>
               </label>
               <button
                 type="button"
@@ -260,12 +328,12 @@ const Login: React.FC = () => {
               type="submit"
               disabled={isLoading}
               className={cn(
-                'w-full py-3.5 px-6 rounded-xl font-semibold text-white transition-all duration-300',
-                'bg-gradient-to-r from-primary to-primary-dark',
-                'hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5',
-                'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
-                'disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none',
-                'flex items-center justify-center gap-2'
+                "w-full py-3.5 px-6 rounded-xl font-semibold text-white transition-all duration-300",
+                "bg-gradient-to-r from-primary to-primary-dark",
+                "hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5",
+                "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                "disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none",
+                "flex items-center justify-center gap-2",
               )}
             >
               {isLoading ? (
@@ -274,23 +342,25 @@ const Login: React.FC = () => {
                   Signing in...
                 </>
               ) : (
-                'Sign In'
+                "Sign In"
               )}
             </button>
           </form>
 
           {/* Demo Credentials */}
           <div className="mt-8 p-4 bg-muted rounded-xl border border-border">
-            <p className="text-sm font-medium text-foreground mb-2">Demo Credentials</p>
+            <p className="text-sm font-medium text-foreground mb-2">
+              Demo Credentials
+            </p>
             <div className="space-y-1 text-sm text-foreground-secondary">
               <p>
-                <span className="text-foreground-tertiary">Email:</span>{' '}
+                <span className="text-foreground-tertiary">Email:</span>{" "}
                 <code className="px-1.5 py-0.5 bg-background rounded text-primary font-mono text-xs">
                   admin@pulseops.com
                 </code>
               </p>
               <p>
-                <span className="text-foreground-tertiary">Password:</span>{' '}
+                <span className="text-foreground-tertiary">Password:</span>{" "}
                 <code className="px-1.5 py-0.5 bg-background rounded text-primary font-mono text-xs">
                   Admin@123
                 </code>

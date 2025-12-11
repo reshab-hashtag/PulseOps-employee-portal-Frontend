@@ -1,13 +1,13 @@
 export interface User {
-    id: string;
-    name: string;
-    email: string;
-    role: 'admin' | 'employee' | 'hr';
-    avatar?: string;
+  id: string;
+  name: string;
+  email: string;
+  role: "admin" | "employee" | "hr";
+  avatar?: string;
 }
 
 export interface ApiResponse<T> {
-    data: T;
-    message: string;
-    status: number;
+  data: T;
+  message: string;
+  status: number;
 }

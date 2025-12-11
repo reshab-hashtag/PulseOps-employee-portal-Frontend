@@ -1,5 +1,5 @@
-import api, { tokenStorage } from './api';
-import type { User } from '../types/user.types';
+import api, { tokenStorage } from "./api";
+import type { User } from "../types/user.types";
 
 export interface LoginCredentials {
   email: string;
@@ -25,13 +25,13 @@ export interface ApiError {
 
 export const authService = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/login', credentials);
+    const response = await api.post<AuthResponse>("/auth/login", credentials);
 
     // Store tokens on successful login
     if (response.data.success) {
       tokenStorage.setTokens(
         response.data.data.accessToken,
-        response.data.data.refreshToken
+        response.data.data.refreshToken,
       );
     }
 
@@ -40,15 +40,18 @@ export const authService = {
 
   logout: async (): Promise<void> => {
     try {
-      await api.post('/auth/logout');
+      await api.post("/auth/logout");
     } finally {
       // Always clear tokens, even if API call fails
       tokenStorage.clearTokens();
     }
   },
 
-  getCurrentUser: async (): Promise<{ success: boolean; data: { user: User } }> => {
-    const response = await api.get('/auth/me');
+  getCurrentUser: async (): Promise<{
+    success: boolean;
+    data: { user: User };
+  }> => {
+    const response = await api.get("/auth/me");
     return response.data;
   },
 

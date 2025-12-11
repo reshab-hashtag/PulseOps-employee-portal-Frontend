@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import Footer from './Footer';
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const DRAWER_WIDTH = 260;
 const HEADER_HEIGHT = 64; // 4rem = 64px
@@ -20,7 +20,10 @@ const MainLayout: React.FC = () => {
       <Header handleDrawerToggle={handleDrawerToggle} />
 
       {/* Sidebar - Below header */}
-      <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+      <Sidebar
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+      />
 
       {/* Main Content Area */}
       <main
